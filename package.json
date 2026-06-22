@@ -1,5 +1,5 @@
 ﻿{
-    "name":  "guardrail-cli",
+    "name":  "guardrail-scanner",
     "version":  "0.1.0",
     "description":  "One-command security scanner for indie projects — secrets, OWASP, dependencies",
     "main":  "src/index.js",
