@@ -4,6 +4,7 @@ const { scanDependencies } = require("./scanners/dependencies");
 const { scanOwasp } = require("./scanners/owasp");
 const { scanConfig } = require("./scanners/config");
 const { terminalReport } = require("./reporters/terminal");
+const fs = require("fs");
 const path = require("path");
 
 async function scan(options) {
@@ -40,6 +41,10 @@ async function scan(options) {
 
   const summary = calculateSummary(issues);
   terminalReport(issues, summary, targetPath);
+
+  // Save report for "guardrail report" command
+  const reportPath = path.join(targetPath, ".guardrail-report.json");
+  fs.writeFileSync(reportPath, JSON.stringify({ issues, summary, scannedAt: new Date().toISOString(), targetPath }, null, 2));
 
   return { issues, summary, scannedAt: new Date().toISOString(), targetPath };
 }
